@@ -6,7 +6,7 @@ const MAX_COUNT_LIKES = 200;
 const MIN_COUNT_COMMENTS = 0;
 const MAX_COUNT_COMMENTS = 30;
 
-const messages = ['Всё отлично!',
+const MESSAGES = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
@@ -14,7 +14,7 @@ const messages = ['Всё отлично!',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const names = [
+const NAMES = [
   'Анна',
   'Виктор',
   'Александр',
@@ -50,8 +50,8 @@ const generateComments = (countComments) => {
     const comment = {
       id: generateIdcomments(),
       avatar: `img/avatar-${generateRandomNumber(MIN_INDEX_AVATAR, MAX_INDEX_AVATAR)}.svg`,
-      message: messages[generateRandomNumber(0, messages.length - 1)],
-      name: names[generateRandomNumber(0, names.length - 1)],
+      message: MESSAGES[generateRandomNumber(0, MESSAGES.length - 1)],
+      name: NAMES[generateRandomNumber(0, NAMES.length - 1)],
     };
     result[i] = comment;
   }
