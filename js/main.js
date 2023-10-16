@@ -1,10 +1,24 @@
-const MIN_INDEX_AVATAR = 1;
-const MAX_INDEX_AVATAR = 6;
 const COUNT_POSTS = 25;
-const MIN_COUNT_LIKES = 15;
-const MAX_COUNT_LIKES = 200;
-const MIN_COUNT_COMMENTS = 0;
-const MAX_COUNT_COMMENTS = 30;
+
+const AvatarId = {
+  MIN: 1,
+  MAX: 6,
+};
+
+const MessageCount = {
+  MIN: 1,
+  MAX: 2,
+};
+
+const CommentsCount = {
+  MIN: 0,
+  MAX: 30,
+};
+
+const LikesCount = {
+  MIN: 15,
+  MAX: 200,
+};
 
 const MESSAGES = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -27,14 +41,6 @@ const NAMES = [
   'Дарья'
 ];
 
-const createGenerateId = () => {
-  let id = 0;
-  return () => {
-    id++;
-    return id;
-  };
-};
-
 const generateRandomNumber = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -43,39 +49,38 @@ const generateRandomNumber = (min, max) => {
   return Math.floor(result);
 };
 
-const generateComments = (countComments) => {
-  const result = [];
-  const generateIdcomments = createGenerateId();
-  for (let i = 0; i < countComments; i++) {
-    const comment = {
-      id: generateIdcomments(),
-      avatar: `img/avatar-${generateRandomNumber(MIN_INDEX_AVATAR, MAX_INDEX_AVATAR)}.svg`,
-      message: MESSAGES[generateRandomNumber(0, MESSAGES.length - 1)],
-      name: NAMES[generateRandomNumber(0, NAMES.length - 1)],
-    };
-    result[i] = comment;
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
-
-  return result;
+  return array;
 };
 
-const generatePosts = () => {
-  const result = [];
-  const generateIdPhotos = createGenerateId();
+const getComment = (_, id) => {
+  const comment = {
+    id,
+    avatar: `img/avatar-${generateRandomNumber(AvatarId.MIN, AvatarId.MAX)}.svg`,
+    message: shuffle(MESSAGES).slice(0, generateRandomNumber(MessageCount.MIN, MessageCount.MAX)),//MESSAGES[generateRandomNumber(0, MESSAGES.length - 1)],
+    name: NAMES[generateRandomNumber(0, NAMES.length - 1)],
+  };
 
-  for (let i = 0; i < COUNT_POSTS; i++){
-    const id = generateIdPhotos();
-    const photo = {
-      id: id,
-      url: `photos/${id}.jpg`,
-      description: `Изображение с идентификатором ${id}`,
-      likes: generateRandomNumber(MIN_COUNT_LIKES, MAX_COUNT_LIKES),
-      comments: generateComments(generateRandomNumber(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS))
-    };
-    result[i] = photo;
-  }
-
-  return result;
+  return comment;
 };
+
+const getPost = (_, id) => {
+  id++;
+  const photo = {
+    id,
+    url: `photos/${id}.jpg`,
+    description: `Изображение с идентификатором ${id}`,
+    likes: generateRandomNumber(LikesCount.MIN, LikesCount.MAX),
+    comments: Array.from( {length: generateRandomNumber(CommentsCount.MIN, CommentsCount.MAX)}, getComment)
+  };
+
+  return photo;
+};
+
+const generatePosts = () => Array.from({length: COUNT_POSTS}, getPost);
 
 generatePosts();
