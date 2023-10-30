@@ -25,6 +25,16 @@ const searchNumber = (string) => {
   return result.length > 0? +result : Number.NaN;
 };
 
+const isPossibleMeeteing = (workingStart, workingEnd, meetingStart, meetingLength) => {
+  workingStart = Number(workingStart.split(':')[0]) * 60 + Number(workingStart.split(':')[1]);
+  workingEnd = Number(workingEnd.split(':')[0]) * 60 + Number(workingEnd.split(':')[1]);
+  meetingStart = Number(meetingStart.split(':')[0]) * 60 + Number(meetingStart.split(':')[1]);
+  const meetingEnd = meetingStart + meetingLength;
+
+  return (workingStart <= meetingStart) && (meetingEnd <= workingEnd);
+};
+
 isCorrectLength('test', 4);
 isPalindromeString('Кекс');
 searchNumber(1.5);
+isPossibleMeeteing();

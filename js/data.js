@@ -1,5 +1,5 @@
 import {COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES} from './consts.js';
-import {generateRandomNumber, shuffle} from './util.js';
+import {generateRandomNumber, shuffle} from './utils.js';
 
 const getComment = (_, id) => {
   const comment = {
