@@ -1,3 +1,3 @@
-import {generatePosts} from './data.js';
+import {createPictures} from './pictures.js';
 
-generatePosts();
+createPictures();
