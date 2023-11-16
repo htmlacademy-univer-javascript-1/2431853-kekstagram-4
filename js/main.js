@@ -1,3 +1,4 @@
+import {renderPictures} from './pictures.js';
 import {generatePosts} from './data.js';
 
-generatePosts();
+renderPictures(generatePosts());
