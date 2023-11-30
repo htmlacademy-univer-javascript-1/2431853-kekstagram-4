@@ -50,9 +50,9 @@ const renderMainData = (picture) => {
 };
 
 const renderCommentsCount = () => {
-  const texdfkdsf = `${commentsCounter} из <span class="comments-count">${comments.length}</span> комментариев`;
+  const commentsCounterDiv = `${commentsCounter} из <span class="comments-count">${comments.length}</span> комментариев`;
   commentsCount.innerHTML = '';
-  commentsCount.insertAdjacentHTML('afterbegin', texdfkdsf);
+  commentsCount.insertAdjacentHTML('afterbegin', commentsCounterDiv);
 };
 
 const renderComments = () => {
