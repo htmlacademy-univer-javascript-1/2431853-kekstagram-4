@@ -1,12 +1,16 @@
 import {isEscapeKey} from './utils.js';
 
+const STEP_COMMENTS = 5;
+
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCloseCross = bigPicture.querySelector('.big-picture__cancel');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const commentsCount = bigPicture.querySelector('.social__comment-count');
 const loadButton = bigPicture.querySelector('.comments-loader');
+let comments = null;
+let commentsCounter = STEP_COMMENTS;
 
-const onClosePopup = () => {
+const onPopupClose = () => {
   closePopup();
 };
 
@@ -21,7 +25,9 @@ function closePopup (){
   bigPicture.classList.add('hidden');
 
   document.removeEventListener('keydown', onPopupKeydown);
-  bigPictureCloseCross.removeEventListener('click',onClosePopup);
+  bigPictureCloseCross.removeEventListener('click',onPopupClose);
+  commentsCounter = STEP_COMMENTS;
+  loadButton.classList.remove('hidden');
 }
 
 const getCommentTemplate = (comment) => `
@@ -43,93 +49,45 @@ const renderMainData = (picture) => {
   bigPicture.querySelector('.social__caption').textContent = picture.description;
 };
 
-const renderComments = (picture) => {
+const renderCommentsCount = () => {
+  const commentsCounterDiv = `${commentsCounter} из <span class="comments-count">${comments.length}</span> комментариев`;
+  commentsCount.innerHTML = '';
+  commentsCount.insertAdjacentHTML('afterbegin', commentsCounterDiv);
+};
+
+const renderComments = () => {
+  const commentsRender = comments.slice(0, commentsCounter);
   bigPicture.querySelector('.social__comments').innerHTML = '';
-  bigPicture.querySelector('.social__comments').insertAdjacentHTML('afterbegin', picture.comments.map((comment) => getCommentTemplate(comment)).join(''));
+  bigPicture.querySelector('.social__comments').insertAdjacentHTML('afterbegin', commentsRender.map((comment) => getCommentTemplate(comment)).join(''));
+};
+
+const onLoalButtonClick = () => {
+  if (commentsCounter < comments.length){
+    commentsCounter += STEP_COMMENTS;
+  }
+  if (commentsCounter >= comments.length) {
+    commentsCounter = comments.length;
+    loadButton.classList.add('hidden');
+  }
+  renderCommentsCount();
+  renderComments();
+};
+
+const initComments = () => {
+  renderCommentsCount();
+  renderComments();
+  loadButton.addEventListener('click', onLoalButtonClick);
 };
 
 const renderBigPicture = (picture) => {
+  comments = picture.comments.slice();
   renderMainData(picture);
-  renderComments(picture);
+  initComments();
 
   bigPicture.classList.remove('hidden');
-  commentsCount.classList.add('hidden');
-  loadButton.classList.add('hidden');
 
   document.addEventListener('keydown', onPopupKeydown);
-  bigPictureCloseCross.addEventListener('click', onClosePopup);
+  bigPictureCloseCross.addEventListener('click', onPopupClose);
 };
 
 export {renderBigPicture};
-
-
-// const thumbnailsContainer = document.querySelector('.pictures');
-// const bigPicture = document.querySelector('.big-picture');
-// const imgPopup = bigPicture.querySelector('.big-picture__img img');
-// const likesCount = bigPicture.querySelector('.likes-count');
-// const commentsCount = bigPicture.querySelector('.comments-count');
-
-
-// ```
-// <li class="social__comment">
-//     <img
-//         class="social__picture"
-//         src="{{аватар}}"
-//         alt="{{имя комментатора}}"
-//         width="35" height="35">
-//     <p class="social__text">{{текст комментария}}</p>
-// </li>
-// ```
-
-// const onPopupShow = () => {
-
-// };
-
-// thumbnailsContainer.addEventListener('click', (evt) => {
-//   evt.preventDefault();
-
-//   if (evt.target.closest('.picture')) {
-//     console.log('Тык');
-//   }
-// });
-
-// const closeButton = 0;
-// const viewPopup = 0;
-// const bigPicture = 0;
-// const comments = 0;
-// const loadButton = 0;
-
-
-// const getCommentTemplate = ({src, alt, comment}) =>
-//   `<li class="social__comment">
-//   <img
-//       class="social__picture"
-//       src="{{аватар}}"
-//       alt="{{имя комментатора}}"
-//       width="35" height="35">
-//   <p class="social__text">{{текст комментария}}</p>
-// </li>`;
-
-// const renderMainData = (data) => {
-
-// };
-// const renderComments = (data) => {};
-
-// function closeViewPopup() {
-//   test.removeEventListener('click', onCloseBtnClick);
-// };
-
-// const onDocumentEscKeydown = (evt) => {
-//   if(esc) {
-//     closeViewPopup();
-//   }
-// };
-
-// const onCloseBtnClick = () => {
-//   closeViewPopup();
-// };
-
-// export const openViewPopup = (data) => {
-//   renderMainData(data);
-//   renderComments(data);
-// };
