@@ -1,4 +1,5 @@
 import {isEscapeKey} from './utils.js';
+import {body} from './main.js';
 
 const STEP_COMMENTS = 5;
 
@@ -28,6 +29,7 @@ function closePopup (){
   bigPictureCloseCross.removeEventListener('click',onPopupClose);
   commentsCounter = STEP_COMMENTS;
   loadButton.classList.remove('hidden');
+  body.classList.remove('modal-open');
 }
 
 const getCommentTemplate = (comment) => `
@@ -61,7 +63,7 @@ const renderComments = () => {
   bigPicture.querySelector('.social__comments').insertAdjacentHTML('afterbegin', commentsRender.map((comment) => getCommentTemplate(comment)).join(''));
 };
 
-const onLoalButtonClick = () => {
+const onLoadButtonClick = () => {
   if (commentsCounter < comments.length){
     commentsCounter += STEP_COMMENTS;
   }
@@ -76,7 +78,7 @@ const onLoalButtonClick = () => {
 const initComments = () => {
   renderCommentsCount();
   renderComments();
-  loadButton.addEventListener('click', onLoalButtonClick);
+  loadButton.addEventListener('click', onLoadButtonClick);
 };
 
 const renderBigPicture = (picture) => {
@@ -85,6 +87,7 @@ const renderBigPicture = (picture) => {
   initComments();
 
   bigPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
 
   document.addEventListener('keydown', onPopupKeydown);
   bigPictureCloseCross.addEventListener('click', onPopupClose);
