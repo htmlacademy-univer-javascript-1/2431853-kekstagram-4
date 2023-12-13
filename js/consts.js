@@ -1,6 +1,10 @@
 const COUNT_POSTS = 25;
 const SCALE_STEP = 25;
 const SCALE_FACTOR = 0.01;
+const REDEX_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/;
+const MAX_COUNT_HASHTAG = 5;
+const MAX_COUNT_LENGTH_DISCRIPTION = 140;
+const FILE_TYPES = ['image/jpeg', 'image/pjpeg', 'image/png'];
 
 const AvatarId = {
   MIN: 1,
@@ -99,4 +103,4 @@ const Effects = {
   },
 };
 
-export {COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES, SCALE_STEP, SCALE_FACTOR, ScaleValue, Effects};
+export {COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES, SCALE_STEP, SCALE_FACTOR, ScaleValue, Effects, REDEX_HASHTAG, MAX_COUNT_HASHTAG, MAX_COUNT_LENGTH_DISCRIPTION, FILE_TYPES};

@@ -1,12 +1,8 @@
 import {isEscapeKey} from './utils.js';
 import {body} from './main.js';
+import {REDEX_HASHTAG, MAX_COUNT_HASHTAG, MAX_COUNT_LENGTH_DISCRIPTION, FILE_TYPES} from './consts.js';
 import {initScaleControl, destroyScaleControl} from './scale.js';
 import {initSlider, destroySlider} from './effect.js';
-
-const REDEX_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/;
-const MAX_COUNT_HASHTAG = 5;
-const MAX_COUNT_LENGTH_DISCRIPTION = 140;
-const FILE_TYPES = ['image/jpeg', 'image/pjpeg', 'image/png'];
 
 const uploadForm = document.querySelector('.img-upload__form');
 const popup = uploadForm.querySelector('.img-upload__overlay');
