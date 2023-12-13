@@ -5,7 +5,7 @@ const getComment = (_, id) => {
   const comment = {
     id,
     avatar: `img/avatar-${generateRandomNumber(AvatarId.MIN, AvatarId.MAX)}.svg`,
-    message: shuffle(MESSAGES).slice(0, generateRandomNumber(MessageCount.MIN, MessageCount.MAX)),//MESSAGES[generateRandomNumber(0, MESSAGES.length - 1)],
+    message: shuffle(MESSAGES).slice(0, generateRandomNumber(MessageCount.MIN, MessageCount.MAX)),
     name: NAMES[generateRandomNumber(0, NAMES.length - 1)],
   };
 
