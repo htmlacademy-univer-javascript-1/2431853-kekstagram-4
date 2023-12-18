@@ -1,10 +1,15 @@
 import {renderPictures} from './pictures.js';
-import {generatePosts} from './data.js';
+import {showAlert} from './utils.js';
 import {initEditPopup} from './edit-popup.js';
+import {getData} from './api.js';
 
-const body = document.querySelector('body');
+export const body = document.querySelector('body');
+getData()
+  .then((data) => {
+    renderPictures(data);
+  })
+  .catch(() => {
+    showAlert();
+  });
 
-renderPictures(generatePosts());
 initEditPopup();
-
-export {body};

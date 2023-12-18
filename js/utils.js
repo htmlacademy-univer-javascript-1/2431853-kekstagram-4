@@ -16,4 +16,20 @@ const shuffle = (array) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {generateRandomNumber, shuffle, isEscapeKey};
+const showAlert = () => {
+  const alert = document.querySelector('div');
+  alert.style.position = 'absolute';
+  alert.style.zIndex = '100';
+  alert.style.left= '0';
+  alert.style.top = '0';
+  alert.style.right = '0';
+  alert.style.padding = '10px 3px';
+  alert.style.fontSize = '30px';
+  alert.style.textAlign = 'center';
+  alert.style.backgroundColor = 'red';
+  alert.style.lineHeight = '28px';
+  alert.textContent = 'Не удалось загрузить данные.Попробуйте обновить страницу';
+  document.body.append(alert);
+};
+
+export {generateRandomNumber, shuffle, isEscapeKey, showAlert};
