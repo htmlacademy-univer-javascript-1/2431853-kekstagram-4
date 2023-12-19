@@ -1,4 +1,4 @@
-import {Effects} from './consts.js';
+import {Effect} from './consts.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadPicturePreview = uploadForm.querySelector('.img-upload__preview img');
@@ -10,7 +10,7 @@ const effectLevel = uploadForm.querySelector('.effect-level__value');
 let currentEffect = null;
 
 const updatePictureStyle = () => {
-  if (currentEffect === Effects.DEFAULT) {
+  if (currentEffect === Effect.DEFAULT) {
     uploadPicturePreview.style.filter = null;
   } else {
     const value = effectLevel.value;
@@ -44,7 +44,7 @@ const createSlider = (effect) => {
 };
 
 const updateSlider = () => {
-  if (currentEffect === Effects.DEFAULT) {
+  if (currentEffect === Effect.DEFAULT) {
     sliderContainer.classList.add('hidden');
   } else {
     slider.noUiSlider.updateOptions({
@@ -61,10 +61,10 @@ const updateSlider = () => {
 
 const onEffectChange = (evt) => {
   const changedEffect = evt.target.value.toUpperCase();
-  if (changedEffect in Effects) {
-    currentEffect = Effects[changedEffect];
+  if (changedEffect in Effect) {
+    currentEffect = Effect[changedEffect];
   } else {
-    currentEffect = Effects.DEFAULT;
+    currentEffect = Effect.DEFAULT;
   }
   updateSlider();
   updatePictureStyle();
@@ -74,11 +74,10 @@ const destroySlider = () => {
   slider.noUiSlider.destroy();
   effects.removeEventListener('change', onEffectChange);
   uploadPicturePreview.style.filter = '';
-
 };
 
 const initSlider = () => {
-  currentEffect = Effects.DEFAULT;
+  currentEffect = Effect.DEFAULT;
   createSlider(currentEffect);
   effects.addEventListener('change', onEffectChange);
 };

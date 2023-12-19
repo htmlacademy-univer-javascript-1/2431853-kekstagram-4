@@ -52,7 +52,7 @@ const ScaleValue = {
   MAX: 100,
 };
 
-const Effects = {
+const Effect = {
   DEFAULT: {
     style: 'none',
     min: 0,
@@ -103,4 +103,11 @@ const Effects = {
   },
 };
 
-export {COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES, SCALE_STEP, SCALE_FACTOR, ScaleValue, Effects, REDEX_HASHTAG, MAX_COUNT_HASHTAG, MAX_COUNT_LENGTH_DISCRIPTION, FILE_TYPES};
+const ErrorText = {
+  INVALID_COUNT: `Максимум ${MAX_COUNT_HASHTAG} хэштэгов`,
+  NOT_UNIQUE: 'Хэштэги должны быть уникальными',
+  INVALID_PATTERN: 'Неправильный хэштэг',
+  INVALID_LENGTH: 'Комментарий не может быть длиннее 140 символов!',
+};
+
+export {COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES, SCALE_STEP, SCALE_FACTOR, ScaleValue, Effect, REDEX_HASHTAG, MAX_COUNT_HASHTAG, MAX_COUNT_LENGTH_DISCRIPTION, FILE_TYPES, ErrorText};
