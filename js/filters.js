@@ -32,18 +32,15 @@ const onFiltersFormClick = (evt) => {
     filters.querySelector(`#${activeFilter}`).classList.remove(FILTER_ACTIVE_CLASS);
     evt.target.classList.add(FILTER_ACTIVE_CLASS);
     activeFilter = id;
-    const debouncedDestroyPictures = debounce(() => destroyPictures(), RERENDER_DELAY);
-    const debouncedRenderPictures = debounce(() => renderPictures(filterFunction[id]()), RERENDER_DELAY);
-
-    debouncedDestroyPictures();
-    debouncedRenderPictures();
+    destroyPictures();
+    renderPictures(filterFunction[id]());
   }
 };
 
 const initFilters = (data) => {
   miniatures = data.slice();
   filterContainer.classList.remove(FILTER_HIDDEN_CLASS);
-  filters.addEventListener('click', onFiltersFormClick);
+  filters.addEventListener('click', debounce(onFiltersFormClick, RERENDER_DELAY));
 
   renderPictures(miniatures);
 };
