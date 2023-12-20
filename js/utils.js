@@ -32,4 +32,14 @@ const showAlert = () => {
   document.body.append(alert);
 };
 
-export {generateRandomNumber, shuffle, isEscapeKey, showAlert};
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export {generateRandomNumber, shuffle, isEscapeKey, showAlert, debounce};

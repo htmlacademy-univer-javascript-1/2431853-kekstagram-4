@@ -1,4 +1,4 @@
-import {renderPictures} from './pictures.js';
+import { initFilters } from './filters.js';
 import {showAlert} from './utils.js';
 import {initEditPopup} from './edit-popup.js';
 import {getData} from './api.js';
@@ -6,7 +6,7 @@ import {getData} from './api.js';
 export const body = document.querySelector('body');
 getData()
   .then((data) => {
-    renderPictures(data);
+    initFilters(data);
   })
   .catch(() => {
     showAlert();
