@@ -13,6 +13,11 @@ const onThumbnailsContainerClick = (evt) => {
   }
 };
 
+const destroyPictures = () => {
+  const miniatures = thumbnailsContainer.querySelectorAll('.picture');
+  miniatures.forEach((miniature) => miniature.remove());
+};
+
 const renderPictures = (data) => {
   pictures = data.slice();
   const picturesListFragment = document.createDocumentFragment();
@@ -31,4 +36,4 @@ const renderPictures = (data) => {
   thumbnailsContainer.addEventListener('click', onThumbnailsContainerClick);
 };
 
-export {renderPictures};
+export {renderPictures, destroyPictures};
