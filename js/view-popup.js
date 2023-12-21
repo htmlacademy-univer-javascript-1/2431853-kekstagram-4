@@ -1,7 +1,6 @@
-import {isEscapeKey} from './utils.js';
-import {body} from './main.js';
-
-const STEP_COMMENTS = 5;
+import { isEscapeKey } from './utils.js';
+import { body}  from './main.js';
+import { STEP_COMMENTS } from './consts.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCloseCross = bigPicture.querySelector('.big-picture__cancel');
@@ -93,4 +92,4 @@ const renderBigPicture = (picture) => {
   bigPictureCloseCross.addEventListener('click', onPopupClose);
 };
 
-export {renderBigPicture};
+export { renderBigPicture };

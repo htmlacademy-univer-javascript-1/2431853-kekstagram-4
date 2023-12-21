@@ -1,4 +1,4 @@
-import {Effect} from './consts.js';
+import { Effect } from './consts.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadPicturePreview = uploadForm.querySelector('.img-upload__preview img');

@@ -1,16 +1,6 @@
 import { renderPictures, destroyPictures } from './pictures.js';
 import { shuffle, debounce } from './utils.js';
-
-const FILTER_HIDDEN_CLASS = 'img-filters--inactive';
-const FILTER_ACTIVE_CLASS = 'img-filters__button--active';
-const COUNT_MINIATURES_RANDOM_FILTER = 10;
-const RERENDER_DELAY = 500;
-
-const Filter = {
-  DEFAULT: 'filter-default',
-  RANDOM: 'filter-random',
-  DISCUSSED: 'filter-discussed',
-};
+import { FILTER_ACTIVE_CLASS, FILTER_HIDDEN_CLASS, COUNT_MINIATURES_RANDOM_FILTER, RERENDER_DELAY, Filter } from './consts.js';
 
 const filterContainer = document.querySelector('.img-filters');
 const filters = filterContainer.querySelector('.img-filters__form');

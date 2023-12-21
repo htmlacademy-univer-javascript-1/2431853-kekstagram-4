@@ -1,5 +1,5 @@
-import {COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES} from './consts.js';
-import {generateRandomNumber, shuffle} from './utils.js';
+import { COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES } from './consts.js';
+import { generateRandomNumber, shuffle } from './utils.js';
 
 const getComment = (_, id) => {
   const comment = {
@@ -27,4 +27,4 @@ const getPost = (_, id) => {
 
 const generatePosts = () => Array.from({length: COUNT_POSTS}, getPost);
 
-export {generatePosts};
+export { generatePosts };
