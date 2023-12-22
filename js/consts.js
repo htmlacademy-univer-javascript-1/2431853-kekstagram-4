@@ -5,6 +5,18 @@ const REDEX_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/;
 const MAX_COUNT_HASHTAG = 5;
 const MAX_COUNT_LENGTH_DISCRIPTION = 140;
 const FILE_TYPES = ['image/jpeg', 'image/pjpeg', 'image/png'];
+const STEP_COMMENTS = 5;
+const MESSAGE_Z_INDEX = 100;
+const FILTER_HIDDEN_CLASS = 'img-filters--inactive';
+const FILTER_ACTIVE_CLASS = 'img-filters__button--active';
+const COUNT_MINIATURES_RANDOM_FILTER = 10;
+const RERENDER_DELAY = 500;
+
+const Filter = {
+  DEFAULT: 'filter-default',
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed',
+};
 
 const AvatarId = {
   MIN: 1,
@@ -110,4 +122,4 @@ const ErrorText = {
   INVALID_LENGTH: 'Комментарий не может быть длиннее 140 символов!',
 };
 
-export {COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES, SCALE_STEP, SCALE_FACTOR, ScaleValue, Effect, REDEX_HASHTAG, MAX_COUNT_HASHTAG, MAX_COUNT_LENGTH_DISCRIPTION, FILE_TYPES, ErrorText};
+export {RERENDER_DELAY, COUNT_MINIATURES_RANDOM_FILTER, FILTER_ACTIVE_CLASS, FILTER_HIDDEN_CLASS, Filter, MESSAGE_Z_INDEX, STEP_COMMENTS, COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES, SCALE_STEP, SCALE_FACTOR, ScaleValue, Effect, REDEX_HASHTAG, MAX_COUNT_HASHTAG, MAX_COUNT_LENGTH_DISCRIPTION, FILE_TYPES, ErrorText, };

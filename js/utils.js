@@ -42,4 +42,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export {generateRandomNumber, shuffle, isEscapeKey, showAlert, debounce};
+export { generateRandomNumber, shuffle, isEscapeKey, showAlert, debounce };

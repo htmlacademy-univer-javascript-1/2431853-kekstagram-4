@@ -1,4 +1,5 @@
-import {isEscapeKey} from './utils.js';
+import { isEscapeKey } from './utils.js';
+import { MESSAGE_Z_INDEX } from './consts.js';
 
 const body = document.querySelector('body');
 const successMessage = body.querySelector('#success').content.querySelector('.success');
@@ -31,6 +32,7 @@ function hideMessage() {
 }
 
 const showMessage = (message, messageCloseButton) => {
+  message.style.zIndex = `${MESSAGE_Z_INDEX}`;
   body.append(message);
   document.addEventListener('keydown', onMessageKeydown);
   body.addEventListener('click', onBodyClick);
@@ -41,4 +43,4 @@ const showSuccessMessage = () => showMessage(successMessage, '.success__button')
 
 const showErrorMessage = () => showMessage(errorMessage, '.error__button');
 
-export {showSuccessMessage, showErrorMessage};
+export { showSuccessMessage, showErrorMessage };

@@ -36,4 +36,4 @@ const initScaleControl = () => {
   scaleControlBiggerBtn.addEventListener('click', onBiggerBtnClick);
 };
 
-export {destroyScaleControl, initScaleControl};
+export { destroyScaleControl, initScaleControl };

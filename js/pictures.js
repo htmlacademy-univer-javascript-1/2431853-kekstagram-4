@@ -1,4 +1,4 @@
-import {renderBigPicture} from './view-popup.js';
+import { renderBigPicture } from './view-popup.js';
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const thumbnailsContainer = document.querySelector('.pictures');
@@ -36,4 +36,4 @@ const renderPictures = (data) => {
   thumbnailsContainer.addEventListener('click', onThumbnailsContainerClick);
 };
 
-export {renderPictures, destroyPictures};
+export { renderPictures, destroyPictures };
