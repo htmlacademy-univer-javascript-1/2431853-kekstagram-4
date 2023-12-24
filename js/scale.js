@@ -1,39 +1,39 @@
 import { SCALE_FACTOR, SCALE_STEP, ScaleValue } from './consts.js';
 
-const uploadForm = document.querySelector('.img-upload__form');
-const uploadPicturePreview = uploadForm.querySelector('.img-upload__preview img');
-const scaleControlSmallerBtn = uploadForm.querySelector('.scale__control--smaller');
-const scaleControlBiggerBtn = uploadForm.querySelector('.scale__control--bigger');
-const scaleControlInput = uploadForm.querySelector('.scale__control--value');
+const uploadFormElement = document.querySelector('.img-upload__form');
+const uploadPicturePreviewElement = uploadFormElement.querySelector('.img-upload__preview img');
+const scaleControlSmallerBtnElement = uploadFormElement.querySelector('.scale__control--smaller');
+const scaleControlBiggerBtnElement = uploadFormElement.querySelector('.scale__control--bigger');
+const scaleControlInputElement = uploadFormElement.querySelector('.scale__control--value');
 
-const onSmallerBtnClick = () => {
-  let scaleValue = Number(scaleControlInput.value.slice(0, -1));
+const onScaleControlSmallerBtnClick = () => {
+  let scaleValue = Number(scaleControlInputElement.value.slice(0, -1));
   if (scaleValue > ScaleValue.MIN) {
     scaleValue -= SCALE_STEP;
-    scaleControlInput.value = `${scaleValue}%`;
-    uploadPicturePreview.style.transform = `scale(${scaleValue * SCALE_FACTOR})`;
+    scaleControlInputElement.value = `${scaleValue}%`;
+    uploadPicturePreviewElement.style.transform = `scale(${scaleValue * SCALE_FACTOR})`;
   }
 };
 
-const onBiggerBtnClick = () => {
-  let scaleValue = Number(scaleControlInput.value.slice(0, -1));
+const onScaleControlBiggerBtnClick = () => {
+  let scaleValue = Number(scaleControlInputElement.value.slice(0, -1));
   if (scaleValue < ScaleValue.MAX) {
     scaleValue += SCALE_STEP;
-    scaleControlInput.value = `${scaleValue}%`;
-    uploadPicturePreview.style.transform = `scale(${scaleValue * SCALE_FACTOR})`;
+    scaleControlInputElement.value = `${scaleValue}%`;
+    uploadPicturePreviewElement.style.transform = `scale(${scaleValue * SCALE_FACTOR})`;
   }
 };
 
 const destroyScaleControl = () => {
-  scaleControlSmallerBtn.removeEventListener('click', onSmallerBtnClick);
-  scaleControlBiggerBtn.removeEventListener('click', onBiggerBtnClick);
-  uploadPicturePreview.style.transform = '';
+  scaleControlSmallerBtnElement.removeEventListener('click', onScaleControlSmallerBtnClick);
+  scaleControlBiggerBtnElement.removeEventListener('click', onScaleControlBiggerBtnClick);
+  uploadPicturePreviewElement.style.transform = '';
 };
 
 const initScaleControl = () => {
-  scaleControlInput.value = `${ScaleValue.MAX}%`;
-  scaleControlSmallerBtn.addEventListener('click', onSmallerBtnClick);
-  scaleControlBiggerBtn.addEventListener('click', onBiggerBtnClick);
+  scaleControlInputElement.value = `${ScaleValue.MAX}%`;
+  scaleControlSmallerBtnElement.addEventListener('click', onScaleControlSmallerBtnClick);
+  scaleControlBiggerBtnElement.addEventListener('click', onScaleControlBiggerBtnClick);
 };
 
 export { destroyScaleControl, initScaleControl };

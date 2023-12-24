@@ -1,38 +1,38 @@
-import { renderPictures, destroyPictures } from './pictures.js';
-import { shuffle, debounce } from './utils.js';
-import { FILTER_ACTIVE_CLASS, FILTER_HIDDEN_CLASS, COUNT_MINIATURES_RANDOM_FILTER, RERENDER_DELAY, Filter } from './consts.js';
+import { renderThumbnails, renderThumbnailsDebounced, destroyThumbnailsDebounced } from './thumbnails.js';
+import { shuffle } from './utils.js';
+import { FILTER_ACTIVE_CLASS, FILTER_HIDDEN_CLASS, COUNT_THUMBNAILS_RANDOM_FILTER, Filter } from './consts.js';
 
-const filterContainer = document.querySelector('.img-filters');
-const filters = filterContainer.querySelector('.img-filters__form');
+const filterContainerElement = document.querySelector('.img-filters');
+const filterFormElement = filterContainerElement.querySelector('.img-filters__form');
 
-let miniatures = null;
+let thumbnails = null;
 let activeFilter = Filter.DEFAULT;
 
-const compareMiniatures = (miniaturesA, miniaturesB) => miniaturesB.comments.length - miniaturesA.comments.length;
+const compareThumbnails = (miniaturesA, miniaturesB) => miniaturesB.comments.length - miniaturesA.comments.length;
 
 const filterFunction = {
-  [Filter.DEFAULT]: () => miniatures,
-  [Filter.RANDOM]: () => shuffle(miniatures.slice()).slice(0, COUNT_MINIATURES_RANDOM_FILTER),
-  [Filter.DISCUSSED]: () => miniatures.slice().sort(compareMiniatures)
+  [Filter.DEFAULT]: () => thumbnails,
+  [Filter.RANDOM]: () => shuffle(thumbnails.slice()).slice(0, COUNT_THUMBNAILS_RANDOM_FILTER),
+  [Filter.DISCUSSED]: () => thumbnails.slice().sort(compareThumbnails)
 };
 
 const onFiltersFormClick = (evt) => {
   const id = evt.target.id;
   if (id && id !== activeFilter) {
-    filters.querySelector(`#${activeFilter}`).classList.remove(FILTER_ACTIVE_CLASS);
+    filterFormElement.querySelector(`#${activeFilter}`).classList.remove(FILTER_ACTIVE_CLASS);
     evt.target.classList.add(FILTER_ACTIVE_CLASS);
     activeFilter = id;
-    destroyPictures();
-    renderPictures(filterFunction[id]());
+    destroyThumbnailsDebounced();
+    renderThumbnailsDebounced(filterFunction[id]());
   }
 };
 
 const initFilters = (data) => {
-  miniatures = data.slice();
-  filterContainer.classList.remove(FILTER_HIDDEN_CLASS);
-  filters.addEventListener('click', debounce(onFiltersFormClick, RERENDER_DELAY));
+  thumbnails = data.slice();
+  filterContainerElement.classList.remove(FILTER_HIDDEN_CLASS);
+  filterFormElement.addEventListener('click', onFiltersFormClick);
 
-  renderPictures(miniatures);
+  renderThumbnails(thumbnails);
 };
 
 export {initFilters};

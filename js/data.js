@@ -1,4 +1,4 @@
-import { COUNT_POSTS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES } from './consts.js';
+import { COUNT_THUMBNAILS, AvatarId, MessageCount, CommentsCount, LikesCount, MESSAGES, NAMES } from './consts.js';
 import { generateRandomNumber, shuffle } from './utils.js';
 
 const getComment = (_, id) => {
@@ -12,7 +12,7 @@ const getComment = (_, id) => {
   return comment;
 };
 
-const getPost = (_, id) => {
+const getThumbnail = (_, id) => {
   id++;
   const photo = {
     id,
@@ -25,6 +25,6 @@ const getPost = (_, id) => {
   return photo;
 };
 
-const generatePosts = () => Array.from({length: COUNT_POSTS}, getPost);
+const generateThumbnails = () => Array.from({length: COUNT_THUMBNAILS}, getThumbnail);
 
-export { generatePosts };
+export { generateThumbnails };

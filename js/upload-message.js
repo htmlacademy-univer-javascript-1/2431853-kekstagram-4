@@ -1,9 +1,9 @@
 import { isEscapeKey } from './utils.js';
 import { MESSAGE_Z_INDEX } from './consts.js';
 
-const body = document.querySelector('body');
-const successMessage = body.querySelector('#success').content.querySelector('.success');
-const errorMessage = body.querySelector('#error').content.querySelector('.error');
+const bodyElement = document.querySelector('body');
+const successMessageElement = bodyElement.querySelector('#success').content.querySelector('.success');
+const errorMessageElement = bodyElement.querySelector('#error').content.querySelector('.error');
 
 const onMessageKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -23,24 +23,24 @@ const onCloseBtnClick = () => {
 };
 
 function hideMessage() {
-  const message = document.querySelector('.success') || document.querySelector('.error');
-  const messageCloseButton = document.querySelector('.success__button') || document.querySelector('.error__button');
+  const messageElement = document.querySelector('.success') || document.querySelector('.error');
+  const messageCloseButtonElement = document.querySelector('.success__button') || document.querySelector('.error__button');
   document.removeEventListener('keydown', onMessageKeydown);
-  body.removeEventListener('click', onBodyClick);
-  messageCloseButton.removeEventListener('click', onCloseBtnClick);
-  message.remove();
+  bodyElement.removeEventListener('click', onBodyClick);
+  messageCloseButtonElement.removeEventListener('click', onCloseBtnClick);
+  messageElement.remove();
 }
 
 const showMessage = (message, messageCloseButton) => {
   message.style.zIndex = `${MESSAGE_Z_INDEX}`;
-  body.append(message);
+  bodyElement.append(message);
   document.addEventListener('keydown', onMessageKeydown);
-  body.addEventListener('click', onBodyClick);
-  body.querySelector(messageCloseButton).addEventListener('click', onCloseBtnClick);
+  bodyElement.addEventListener('click', onBodyClick);
+  bodyElement.querySelector(messageCloseButton).addEventListener('click', onCloseBtnClick);
 };
 
-const showSuccessMessage = () => showMessage(successMessage, '.success__button');
+const showSuccessMessage = () => showMessage(successMessageElement, '.success__button');
 
-const showErrorMessage = () => showMessage(errorMessage, '.error__button');
+const showErrorMessage = () => showMessage(errorMessageElement, '.error__button');
 
 export { showSuccessMessage, showErrorMessage };

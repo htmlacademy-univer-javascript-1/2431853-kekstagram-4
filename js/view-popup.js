@@ -1,12 +1,12 @@
 import { isEscapeKey } from './utils.js';
-import { body}  from './main.js';
+import { bodyElement }  from './main.js';
 import { STEP_COMMENTS } from './consts.js';
 
-const bigPicture = document.querySelector('.big-picture');
-const bigPictureCloseCross = bigPicture.querySelector('.big-picture__cancel');
-const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
-const commentsCount = bigPicture.querySelector('.social__comment-count');
-const loadButton = bigPicture.querySelector('.comments-loader');
+const bigPictureElement = document.querySelector('.big-picture');
+const bigPictureCloseBtnElement = bigPictureElement.querySelector('.big-picture__cancel');
+const bigPictureImgElement = bigPictureElement.querySelector('.big-picture__img img');
+const commentsCountElement = bigPictureElement.querySelector('.social__comment-count');
+const loadBtnElement = bigPictureElement.querySelector('.comments-loader');
 let comments = null;
 let commentsCounter = STEP_COMMENTS;
 
@@ -22,13 +22,13 @@ const onPopupKeydown = (evt) => {
 };
 
 function closePopup (){
-  bigPicture.classList.add('hidden');
+  bigPictureElement.classList.add('hidden');
 
   document.removeEventListener('keydown', onPopupKeydown);
-  bigPictureCloseCross.removeEventListener('click',onPopupClose);
+  bigPictureCloseBtnElement.removeEventListener('click',onPopupClose);
   commentsCounter = STEP_COMMENTS;
-  loadButton.classList.remove('hidden');
-  body.classList.remove('modal-open');
+  loadBtnElement.classList.remove('hidden');
+  bodyElement.classList.remove('modal-open');
 }
 
 const getCommentTemplate = (comment) => `
@@ -43,41 +43,46 @@ const getCommentTemplate = (comment) => `
 `;
 
 const renderMainData = (picture) => {
-  bigPictureImg.src = picture.url;
+  bigPictureImgElement.src = picture.url;
 
-  bigPicture.querySelector('.likes-count').textContent = picture.likes;
-  bigPicture.querySelector('.comments-count').textContent = picture.comments.length;
-  bigPicture.querySelector('.social__caption').textContent = picture.description;
+  bigPictureElement.querySelector('.likes-count').textContent = picture.likes;
+  bigPictureElement.querySelector('.comments-count').textContent = picture.comments.length;
+  bigPictureElement.querySelector('.social__caption').textContent = picture.description;
 };
 
 const renderCommentsCount = () => {
   const commentsCounterDiv = `${commentsCounter} из <span class="comments-count">${comments.length}</span> комментариев`;
-  commentsCount.innerHTML = '';
-  commentsCount.insertAdjacentHTML('afterbegin', commentsCounterDiv);
+  commentsCountElement.innerHTML = '';
+  commentsCountElement.insertAdjacentHTML('afterbegin', commentsCounterDiv);
 };
 
 const renderComments = () => {
   const commentsRender = comments.slice(0, commentsCounter);
-  bigPicture.querySelector('.social__comments').innerHTML = '';
-  bigPicture.querySelector('.social__comments').insertAdjacentHTML('afterbegin', commentsRender.map((comment) => getCommentTemplate(comment)).join(''));
+  bigPictureElement.querySelector('.social__comments').innerHTML = '';
+  bigPictureElement.querySelector('.social__comments').insertAdjacentHTML('afterbegin', commentsRender.map((comment) => getCommentTemplate(comment)).join(''));
+};
+
+const adjustCommentCount = () => {
+  if (commentsCounter >= comments.length) {
+    commentsCounter = comments.length;
+    loadBtnElement.classList.add('hidden');
+  }
 };
 
 const onLoadButtonClick = () => {
   if (commentsCounter < comments.length){
     commentsCounter += STEP_COMMENTS;
   }
-  if (commentsCounter >= comments.length) {
-    commentsCounter = comments.length;
-    loadButton.classList.add('hidden');
-  }
+  adjustCommentCount();
   renderCommentsCount();
   renderComments();
 };
 
 const initComments = () => {
+  adjustCommentCount();
   renderCommentsCount();
   renderComments();
-  loadButton.addEventListener('click', onLoadButtonClick);
+  loadBtnElement.addEventListener('click', onLoadButtonClick);
 };
 
 const renderBigPicture = (picture) => {
@@ -85,11 +90,11 @@ const renderBigPicture = (picture) => {
   renderMainData(picture);
   initComments();
 
-  bigPicture.classList.remove('hidden');
-  body.classList.add('modal-open');
+  bigPictureElement.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
 
   document.addEventListener('keydown', onPopupKeydown);
-  bigPictureCloseCross.addEventListener('click', onPopupClose);
+  bigPictureCloseBtnElement.addEventListener('click', onPopupClose);
 };
 
 export { renderBigPicture };
